@@ -6,11 +6,11 @@
 
 HWID Checker is a desktop application built using WPF (Windows Presentation Foundation) in C#. The application allows users to fetch and display detailed system hardware information, including:
 
-- Motherboard
-- Processor
-- Storage Devices (Hard Drives)
-- Network Adapters
-- Graphics Cards
+- Motherboard Serial Number
+- Processor ID
+- Storage Device Serial Numbers (Excludes external devices such as USB drives and focuses on internal storage devices like HDD, SATA SSDs and NVMe SSD drives.)
+- Network Adapter MAC Address
+- Graphics Card UUID
 
 The application also saves this information to a CSV file for future reference.
 
@@ -19,11 +19,7 @@ The application also saves this information to a CSV file for future reference.
 ## Features
 
 - **Fetch and Display Hardware Information:**
-  - Motherboard
-  - Processor
-  - Hard Drive
   - Network Adapters (Displayed in separate tabs)
-  - Graphics Card
 - **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
 - **User-Friendly Interface:** A dark-themed interface for better usability and aesthetics.
 

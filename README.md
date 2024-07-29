@@ -21,10 +21,10 @@ The application also saves this information to a CSV file for future reference.
 - **Fetch and Display Hardware Information:**
   - Network Adapters (Displayed in separate tabs)
 - **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
+  ![image](https://github.com/user-attachments/assets/99e09c3d-079f-4b7e-b597-19b066a773a4)
+
 - **User-Friendly Interface:** A dark-themed interface for better usability and aesthetics.
   
-![image](https://github.com/user-attachments/assets/99e09c3d-079f-4b7e-b597-19b066a773a4)
-
 
 ## Prerequisites
 
@@ -41,4 +41,6 @@ To build and run the HWID Checker application, you will need:
    git clone https://github.com/yourusername/hwid-checker.git
    ```
 
-   
+https://github.com/user-attachments/assets/fda769c1-bcfe-42a1-8a0b-291b867bafcc
+
+

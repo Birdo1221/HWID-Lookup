@@ -8,7 +8,7 @@ HWID Checker is a desktop application built using WPF (Windows Presentation Foun
 
 - Motherboard Serial Number
 - Processor ID
-- Storage Device Serial Numbers `*Excludes external devices and focuses on internal storage like HDDs, SATA SSDs, and NVMe drives*.`
+- Storage Device Serial Numbers *`Excludes external devices and focuses on internal storage like HDDs, SATA SSDs, and NVMe drives.`*
 - Network Adapter MAC Address
 - Graphics Card UUID
 

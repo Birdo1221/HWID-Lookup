@@ -10,7 +10,7 @@ HWID Checker is a desktop application built using WPF (Windows Presentation Foun
   - Motherboard
   - Processor
   - Hard Drive
-  - Network Adapters (displayed in tabs)
+  - Network Adapters (Displayed Separately)
   - Graphics Card
 - Save fetched information to a CSV file.
 - User-friendly interface with a dark theme.

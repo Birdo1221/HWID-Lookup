@@ -1,25 +1,30 @@
 # HWID Checker
 
-HWID Checker is a simple desktop application designed to retrieve and display hardware identification (HWID) information from your system. This tool provides insights into your motherboard, processor, hard drive, graphics card, and network adapters. Additionally, it allows you to save this information to a CSV file for backup purposes.
+## Overview
+
+HWID Checker is a desktop application built using WPF (Windows Presentation Foundation) in C#. The application allows users to fetch and display system hardware information, including motherboard, processor, hard drive, network adapters, and graphics card. Additionally, it provides functionality to save this information into a CSV file and includes a spoof configuration tab for future enhancements.
 
 ## Features
 
-- Fetch and display:
-  - Motherboard Information
-  - Processor Information
-  - Hard Drive Information
-  - Graphics Card Information
-  - Network Adapter Information
-- Save the HWID information to a CSV file named `Hwid_Backup.csv`.
+- Fetch and display system hardware information:
+  - Motherboard
+  - Processor
+  - Hard Drive
+  - Network Adapters (displayed in tabs)
+  - Graphics Card
+- Save fetched information to a CSV file.
 - User-friendly interface with a dark theme.
 
 ## Prerequisites
 
-- [.NET Framework 4.5 or higher](https://dotnet.microsoft.com/download/dotnet-framework)
-- Visual Studio or any compatible IDE for .NET development (if you want to build from source)
+To run the HWID Checker application, you need:
 
-## Installation
+- .NET Framework 4.7.2 or later
+- Visual Studio 2019 or later (for building the project)
 
-1. Clone this repository or download the ZIP file:
+## Setup
+
+1. **Clone the Repository**
+
    ```bash
-   git clone https://github.com/yourusername/HwidProject.git
+   git clone https://github.com/yourusername/hwid-checker.git

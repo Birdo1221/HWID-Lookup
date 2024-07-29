@@ -41,6 +41,4 @@ To build and run the HWID Checker application, you will need:
    git clone https://github.com/yourusername/hwid-checker.git
    ```
 
-https://github.com/user-attachments/assets/fda769c1-bcfe-42a1-8a0b-291b867bafcc
-
 

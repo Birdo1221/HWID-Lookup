@@ -22,6 +22,9 @@ The application also saves this information to a CSV file for future reference.
   - Network Adapters (Displayed in separate tabs)
 - **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
 - **User-Friendly Interface:** A dark-themed interface for better usability and aesthetics.
+  
+![image](https://github.com/user-attachments/assets/99e09c3d-079f-4b7e-b597-19b066a773a4)
+
 
 ## Prerequisites
 
@@ -32,7 +35,10 @@ To build and run the HWID Checker application, you will need:
 
 ## Setup
 
-1. **Clone the Repository**
+**Just Clone the Repository and Open the folder via Visual studio 2019-2024, Using the .Net 6 Framework**
 
    ```bash
    git clone https://github.com/yourusername/hwid-checker.git
+   ```
+
+   

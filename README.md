@@ -45,4 +45,17 @@ To build and run the HWID Checker application, you will need:
    git clone https://github.com/yourusername/hwid-checker.git
    ```
 
+  ```bash
+   The best way to compile this is to make it self-contained with the frameworks for .NET 6 instead of it redirecting download it.  
+   ```
+![image](https://github.com/user-attachments/assets/8e3ededc-4f39-4244-9814-250ee8b3c17b)
+
+   ```bash
+   This is the Pulish config i used to make the stand-alone .exe file  
+   ```
+
+![image](https://github.com/user-attachments/assets/7a563d2f-744a-459c-94f2-24eab6d3f321)
+
+
+
 

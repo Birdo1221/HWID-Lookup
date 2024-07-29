@@ -24,6 +24,7 @@ The application also saves this information to a CSV file for future reference.
 
 ![image](https://github.com/user-attachments/assets/99e09c3d-079f-4b7e-b597-19b066a773a4)
 
+![image](https://github.com/user-attachments/assets/f80205df-0f57-45c2-ae8a-935722af7f9e)
 
 - **User-Friendly Interface:** A dark-gray themed interface for better ease-of-use and aesthetics.
 

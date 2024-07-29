@@ -1,5 +1,7 @@
 # HWID Checker
 
+![image](https://github.com/user-attachments/assets/14707d15-3839-44cf-a76c-25dbe4d51031)
+
 ## Overview
 
 HWID Checker is a desktop application built using WPF (Windows Presentation Foundation) in C#. The application allows users to fetch and display detailed system hardware information, including:

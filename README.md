@@ -2,7 +2,7 @@
 
 ## Overview
 
-HWID Checker is a desktop application built using WPF (Windows Presentation Foundation) in C#. The application allows users to fetch and display system hardware information, including motherboard, processor, hard drive, network adapters, and graphics card. Additionally, it provides functionality to save this information into a CSV file and includes a spoof configuration tab for future enhancements.
+HWID Checker is a desktop application built using WPF (Windows Presentation Foundation) in C#. The application allows users to fetch and display system hardware information, including motherboard, processor, hard drive, network adapters, and graphics card. Additionally, it save this information into a CSV file and includes a spoof configuration tab for future features.
 
 ## Features
 

@@ -14,7 +14,7 @@ HWID Checker is a desktop application built using WPF (Windows Presentation Foun
 
 The application also saves this information to a CSV file for future reference.
 
-**Please Note:** Currently, the application is limited to hardware checking functionality only. It does **not** include any HWID spoofing features, and the spoofing logic is yet to be implemented.
+**Please Note:** Currently, the application is limited to hardware checking functionality only. It does **not** include any HWID spoofing features.
 
 ## Features
 
@@ -52,7 +52,6 @@ To build and run the HWID Checker application, you will need:
    ```bash
    This is the Publish config i used to make the stand-alone .exe file  
    ```
-
 ![image](https://github.com/user-attachments/assets/7a563d2f-744a-459c-94f2-24eab6d3f321)
 
 

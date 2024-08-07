@@ -22,7 +22,7 @@ The application also saves this information to a CSV file for future reference.
   - Network Adapters (Displayed in separate tabs)
 - **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
 
-![image](https://github.com/user-attachments/assets/99e09c3d-079f-4b7e-b597-19b066a773a4)
+![image](https://github.com/user-attachments/assets/29f1e35c-4d34-48cc-b5ce-8a4f692a01e9)
 
 ![image](https://github.com/user-attachments/assets/f80205df-0f57-45c2-ae8a-935722af7f9e)
 

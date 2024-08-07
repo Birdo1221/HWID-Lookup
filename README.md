@@ -45,7 +45,9 @@ To build and run the HWID Checker application, you will need:
    ```
 
   ```bash
-   The best way to compile this is to make it self-contained with the frameworks for .NET 6 instead of it redirecting download it.  
+   The best way to compile this is to make it self-contained with the framework for the application.
+
+   This avoids the need to download the framework separately. 
    ```
 ![image](https://github.com/user-attachments/assets/8e3ededc-4f39-4244-9814-250ee8b3c17b)
 

@@ -1,6 +1,6 @@
 # HWID Checker
 
-![image](https://github.com/user-attachments/assets/c2bdc593-45e9-44b0-92d9-f729e1157a45)
+![image](https://github.com/user-attachments/assets/61ac0375-1075-4e40-8a5b-e1452c211086)
 
 ## Overview
 

@@ -50,7 +50,7 @@ To build and run the HWID Checker application, you will need:
 ![image](https://github.com/user-attachments/assets/8e3ededc-4f39-4244-9814-250ee8b3c17b)
 
    ```bash
-   This is the Publish config i used to make the stand-alone .exe file  
+   This is the Publish configuration i used to make the stand-alone .exe files work without having to install the framework  
    ```
 ![image](https://github.com/user-attachments/assets/7a563d2f-744a-459c-94f2-24eab6d3f321)
 

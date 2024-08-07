@@ -14,6 +14,8 @@ namespace HwidProject
         {
             InitializeComponent();
             LoadNetworkAdapters();
+            PopulateNetworkAdapters();
+
         }
 
         private void FetchHwid_Click(object sender, RoutedEventArgs e)
@@ -21,23 +23,39 @@ namespace HwidProject
             try
             {
                 // Fetch information
-                string motherboardInfo = GetMotherboardInfo();
-                string processorInfo = GetProcessorInfo();
-                string hardDriveInfo = GetHardDriveInfo();
-                string graphicsCardInfo = GetGraphicsCardInfo();
-
+                var hwidInfo = new Dictionary<string, string>
+        {
+            { "Motherboard", GetMotherboardInfo() },
+            { "Processor", GetProcessorInfo() },
+            { "Hard Drive", GetHardDriveInfo() },
+            { "Graphics Card", GetGraphicsCardInfo() },
+            { "ARP Table", GetArpTableInfo() },
+            { "SMBIOS", GetSmbiosInfo() },
+            { "Boot Identifiers", GetBootIdentifiersInfo() },
+            { "USB Devices", GetUsbDevices() },
+            { "PCI Device", GetStorageDeviceDetails() },
+            { "Battery", GetBatteryInfo() },
+            { "RAM", GetRamModules() }
+        };
                 // Display information in UI
-                txtMotherboard.Text = motherboardInfo;
-                txtProcessor.Text = processorInfo;
-                txtHardDrive.Text = hardDriveInfo;
-                txtGraphicsCard.Text = graphicsCardInfo;
+                txtMotherboard.Text = hwidInfo["Motherboard"];
+                txtProcessor.Text = hwidInfo["Processor"];
+                txtHardDrive.Text = hwidInfo["Hard Drive"];
+                txtGraphicsCard.Text = hwidInfo["Graphics Card"];
+                txtArpTable.Text = hwidInfo["ARP Table"];
+                txtSmbios.Text = hwidInfo["SMBIOS"];
+                txtBootIdentifiers.Text = hwidInfo["Boot Identifiers"];
+                txtUsbDevicesInfo.Text = hwidInfo["USB Devices"];
+                txtPCIDevice.Text = hwidInfo["PCI Device"];
+                txtLaptopBattery.Text = hwidInfo["Battery"];
+                txtRamInfo.Text = hwidInfo["RAM"];
 
-                // Define file path with actual directory
+
                 string fileName = "Hwid_Backup.csv";
-                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
                 // Save information to CSV file
-                SaveToCsv(filePath, motherboardInfo, processorInfo, hardDriveInfo, graphicsCardInfo);
+                SaveToCsv(filePath, hwidInfo);
 
                 // Notify user with the actual file path
                 MessageBox.Show($"HWID information has been saved to:\n{filePath}", "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -48,8 +66,7 @@ namespace HwidProject
             }
         }
 
-
-        private void SaveToCsv(string filePath, string motherboardInfo, string processorInfo, string hardDriveInfo, string graphicsCardInfo)
+        private void SaveToCsv(string filePath, Dictionary<string, string> info)
         {
             try
             {
@@ -58,17 +75,11 @@ namespace HwidProject
                     // Write the header
                     writer.WriteLine("Component,Information");
 
-                    // Write motherboard information
-                    writer.WriteLine($"Motherboard,\"{motherboardInfo.Replace("\"", "\"\"")}\"");
-
-                    // Write processor information
-                    writer.WriteLine($"Processor,\"{processorInfo.Replace("\"", "\"\"")}\"");
-
-                    // Write hard drive information
-                    writer.WriteLine($"Hard Drive,\"{hardDriveInfo.Replace("\"", "\"\"")}\"");
-
-                    // Write graphics card information
-                    writer.WriteLine($"Graphics Card,\"{graphicsCardInfo.Replace("\"", "\"\"")}");
+                    // Write each component information
+                    foreach (var entry in info)
+                    {
+                        writer.WriteLine($"{entry.Key},\"{entry.Value.Replace("\"", "\"\"")}\"");
+                    }
                 }
             }
             catch (Exception ex)
@@ -77,106 +88,62 @@ namespace HwidProject
             }
         }
 
+        private void PopulateNetworkAdapters()
+        {
+            try
+            {
+                var networkAdapters = NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(nic => nic.NetworkInterfaceType != NetworkInterfaceType.Loopback && nic.NetworkInterfaceType != NetworkInterfaceType.Tunnel)
+                    .Select(nic => new
+                    {
+                        Name = nic.Description,
+                        MacAddress = nic.GetPhysicalAddress().ToString()
+                    })
+                    .ToList();
 
+                if (networkAdapters.Any())
+                {
+                    var firstAdapter = networkAdapters.First();
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving network adapters: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private static string GetMotherboardInfo()
         {
-            string serialNumber = "N/A";
-            string model = "N/A";
-
-            try
-            {
-                using (var searcher = new ManagementObjectSearcher("SELECT SerialNumber, Product FROM Win32_BaseBoard"))
-                {
-                    foreach (var obj in searcher.Get())
-                    {
-                        if (obj is ManagementObject mo)
-                        {
-                            serialNumber = mo["SerialNumber"]?.ToString() ?? "N/A";
-                            model = mo["Product"]?.ToString() ?? "N/A";
-                            break;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // Handle the exception silently or log it
-            }
-
-            return $"Model: {model}\nSerial Number: {serialNumber}";
+            return GetSystemInfo("SELECT SerialNumber, Product FROM Win32_BaseBoard",
+                                 "SerialNumber", "Product");
         }
 
         private static string GetProcessorInfo()
         {
-            string serialNumber = "N/A";
-            string model = "N/A";
-
-            try
-            {
-                using (var searcher = new ManagementObjectSearcher("SELECT ProcessorId, Name FROM Win32_Processor"))
-                {
-                    foreach (var obj in searcher.Get())
-                    {
-                        if (obj is ManagementObject mo)
-                        {
-                            serialNumber = mo["ProcessorId"]?.ToString() ?? "N/A";
-                            model = mo["Name"]?.ToString() ?? "N/A";
-                            break;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // Handle the exception silently or log it
-            }
-
-            return $"Model: {model}\nProcessor ID: {serialNumber}";
+            return GetSystemInfo("SELECT ProcessorId, Name FROM Win32_Processor",
+                                 "ProcessorId", "Name");
         }
 
         private static string GetHardDriveInfo()
         {
-            string serialNumber = "N/A";
-            string model = "N/A";
-
-            try
-            {
-                using (var searcher = new ManagementObjectSearcher("SELECT SerialNumber, Model FROM Win32_DiskDrive"))
-                {
-                    foreach (var obj in searcher.Get())
-                    {
-                        if (obj is ManagementObject mo)
-                        {
-                            serialNumber = mo["SerialNumber"]?.ToString() ?? "N/A";
-                            model = mo["Model"]?.ToString() ?? "N/A";
-                            break;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // Handle the exception silently or log it
-            }
-
-            return $"Model: {model}\nSerial Number: {serialNumber}";
+            return GetSystemInfo("SELECT SerialNumber, Model FROM Win32_DiskDrive",
+                                 "SerialNumber", "Model");
         }
 
         private static string GetGraphicsCardInfo()
         {
             string graphicsCardInfo = "Graphics Card Information:\n";
-
             try
             {
                 using (var searcher = new ManagementObjectSearcher("SELECT PNPDeviceID, Name FROM Win32_VideoController"))
                 {
-                    foreach (var obj in searcher.Get())
+                    foreach (ManagementObject obj in searcher.Get())
                     {
-                        if (obj is ManagementObject mo)
-                        {
-                            graphicsCardInfo += $"Card: {mo["Name"]}\nUUID: {mo["PNPDeviceID"]}\n\n";
-                        }
+                        graphicsCardInfo += $"Card: {obj["Name"]}\nUUID: {obj["PNPDeviceID"]}\n\n";
                     }
                 }
             }
@@ -184,38 +151,164 @@ namespace HwidProject
             {
                 graphicsCardInfo += "Error fetching data\n";
             }
-
             return graphicsCardInfo;
+        }
+
+        private static string GetSystemInfo(string query, params string[] properties)
+        {
+            string result = string.Empty;
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        foreach (var property in properties)
+                        {
+                            result += $"{property}: {obj[property]}\n";
+                        }
+                        break; // Only fetch the first item
+                    }
+                }
+            }
+            catch
+            {
+                result = "Error fetching data\n";
+            }
+            return result;
+        }
+
+        private string GetArpTableInfo()
+        {
+            string arpTableInfo = string.Empty;
+            try
+            {
+                foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    foreach (var address in ni.GetIPProperties().UnicastAddresses)
+                    {
+                        arpTableInfo += $"Interface: {ni.Description}, IP: {address.Address}\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                arpTableInfo = $"Error: {ex.Message}";
+            }
+            return arpTableInfo;
+        }
+
+        private string GetSmbiosInfo()
+        {
+            return GetSystemInfo("SELECT * FROM Win32_BIOS",
+                                 "Manufacturer", "SMBIOSBIOSVersion", "ReleaseDate");
+        }
+
+        private string GetBootIdentifiersInfo()
+        {
+            return GetSystemInfo("SELECT * FROM Win32_OperatingSystem",
+                                 "BootDevice", "SystemDirectory");
+        }
+
+        private string GetUsbDevices()
+        {
+            string usbDevices = "USB Devices:\n";
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_USBHub"))
+                {
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        usbDevices += $"Device: {obj["DeviceID"]}\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                usbDevices = $"Error: {ex.Message}";
+            }
+            return usbDevices;
+        }
+
+        private string GetStorageDeviceDetails()
+        {
+            string storageDevices = string.Empty;
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive"))
+                {
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        storageDevices += $"Device ID: {obj["DeviceID"]}\n";
+                        storageDevices += $"Model: {obj["Model"]}\n";
+                        storageDevices += $"Serial Number: {obj["SerialNumber"]}\n";
+                        storageDevices += $"Interface Type: {obj["InterfaceType"]}\n";
+                        storageDevices += $"Firmware Version: {obj["FirmwareRevision"]}\n";
+                        storageDevices += $"Capacity: {Convert.ToInt64(obj["Size"]) / (1024 * 1024 * 1024)} GB\n\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                storageDevices = $"Error: {ex.Message}";
+            }
+            return storageDevices;
+        }
+
+        private string GetBatteryInfo()
+        {
+            return GetSystemInfo("SELECT * FROM Win32_Battery",
+                                 "Name", "BatteryStatus", "EstimatedChargeRemaining", "DesignCapacity", "FullChargeCapacity");
+        }
+
+        private string GetRamModules()
+        {
+            string ramModules = string.Empty;
+            try
+            {
+                using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMemory"))
+                {
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        ramModules += $"Manufacturer: {obj["Manufacturer"]}\n";
+                        ramModules += $"Capacity: {Convert.ToInt64(obj["Capacity"]) / (1024 * 1024 * 1024)} GB\n";
+                        ramModules += $"Speed: {obj["Speed"]} MHz\n";
+                        ramModules += $"Part Number: {obj["PartNumber"]}\n\n";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ramModules = $"Error: {ex.Message}";
+            }
+            return ramModules;
         }
 
         private void LoadNetworkAdapters()
         {
             NetworkAdapterTabs.Items.Clear();
-
             var networkAdapters = GetNetworkAdapters();
 
-            for (int i = 0; i < networkAdapters.Count; i++)
+            foreach (var (adapter, index) in networkAdapters.Select((value, i) => (value, i)))
             {
-                var adapter = networkAdapters[i];
                 var tabItem = new TabItem
                 {
-                    Header = $"NIC {i + 1}"
+                    Header = $"NIC {index + 1}",
+                    Content = new StackPanel
+                    {
+                        Margin = new Thickness(10),
+                        Children =
+                        {
+                            new TextBlock
+                            {
+                                Text = $"Adapter: {adapter.Name}\nMAC Address: {adapter.MacAddress}",
+                                TextWrapping = TextWrapping.Wrap,
+                                Foreground = System.Windows.Media.Brushes.White
+                            }
+                        }
+                    }
                 };
 
-                var stackPanel = new StackPanel
-                {
-                    Margin = new Thickness(10)
-                };
-
-                var adapterInfo = new TextBlock
-                {
-                    Text = $"Adapter: {adapter.Name}\nMAC Address: {adapter.MacAddress}",
-                    TextWrapping = TextWrapping.Wrap,
-                    Foreground = System.Windows.Media.Brushes.White
-                };
-
-                stackPanel.Children.Add(adapterInfo);
-                tabItem.Content = stackPanel;
                 NetworkAdapterTabs.Items.Add(tabItem);
             }
         }
@@ -223,20 +316,20 @@ namespace HwidProject
         private List<NetworkAdapterInfo> GetNetworkAdapters()
         {
             var adapters = new List<NetworkAdapterInfo>();
-            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True");
-
-            foreach (ManagementObject obj in searcher.Get())
+            using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True"))
             {
-                var name = obj["Description"]?.ToString() ?? "Unknown";
-                var macAddress = obj["MACAddress"]?.ToString() ?? string.Empty;
-
-                adapters.Add(new NetworkAdapterInfo
+                foreach (ManagementObject obj in searcher.Get())
                 {
-                    Name = name,
-                    MacAddress = macAddress
-                });
-            }
+                    var name = obj["Description"]?.ToString() ?? "Unknown";
+                    var macAddress = obj["MACAddress"]?.ToString() ?? string.Empty;
 
+                    adapters.Add(new NetworkAdapterInfo
+                    {
+                        Name = name,
+                        MacAddress = macAddress
+                    });
+                }
+            }
             return adapters;
         }
 
@@ -244,29 +337,6 @@ namespace HwidProject
         {
             public string Name { get; set; }
             public string MacAddress { get; set; }
-        }
-
-        private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (MainTabControl.SelectedIndex == 1) // Spoof tab selected
-            {
-                // Example: Set default selection or load existing spoof settings if applicable
-            }
-        }
-
-        private void DeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Handle selection change if needed
-        }
-
-        private void ApplySpoof_Click(object sender, RoutedEventArgs e)
-        {
-            // Spoof logic here (currently non-functional)
-        }
-
-        private void Revert_Click(object sender, RoutedEventArgs e)
-        {
-            // Revert spoof logic here (currently non-functional)
         }
     }
 }

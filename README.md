@@ -47,6 +47,9 @@ To build and run the HWID Checker application, you will need:
 
    **This avoids the need to download the framework separately.** 
    ```
+```bash
+   This is the Error you will receive if you dont build the application as Self-Contained 
+   ```
 ![image](https://github.com/user-attachments/assets/8e3ededc-4f39-4244-9814-250ee8b3c17b)
 
    ```bash

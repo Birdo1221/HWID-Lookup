@@ -33,9 +33,6 @@ To build and run the HWID Checker application, you will need:
 - .NET Framework 4.7.2 or later
 - Visual Studio 2019 or later (for building the project)
 
-![image](https://github.com/user-attachments/assets/7308fdcd-e296-4281-9ae5-8cf2bde757bf)
-
-
 ## Setup
 
 **Just Clone the Repository and Open the folder via Visual studio 2019-2024, Using the .Net 6 Framework**
@@ -47,10 +44,6 @@ To build and run the HWID Checker application, you will need:
 
    **This avoids the need to download the framework separately.** 
    ```
-```bash
-   This is the Error you will receive if you dont build the application as Self-Contained 
-   ```
-![image](https://github.com/user-attachments/assets/8e3ededc-4f39-4244-9814-250ee8b3c17b)
 
    ```bash
    This is the Publish configuration i used to make the stand-alone .exe files work without having to install the framework  

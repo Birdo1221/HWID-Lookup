@@ -18,9 +18,9 @@ The application also saves this information to a CSV file for future reference.
 
 ## Features
 
-- **Fetch and Display Hardware Information:**
+  - **Fetch and Display Hardware Information:**
   - Network Adapters (Displayed in separate tabs)
-- **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
+  - **Save Information to CSV File:** Automatically saves the fetched information to a CSV file named `Hwid_Backup.csv` in the application's base directory.
 
 ![image](https://github.com/user-attachments/assets/29f1e35c-4d34-48cc-b5ce-8a4f692a01e9)
 

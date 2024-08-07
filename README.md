@@ -40,11 +40,9 @@ To build and run the HWID Checker application, you will need:
 
 **Just Clone the Repository and Open the folder via Visual studio 2019-2024, Using the .Net 6 Framework**
 
-   ```bash
-   git clone https://github.com/Birdo1221/HWID-Lookup.git
-   ```
-
   ```bash
+  **git clone https://github.com/Birdo1221/HWID-Lookup.git**
+
    The best way to compile this is to make it self-contained with the framework for the application.
 
    This avoids the need to download the framework separately. 

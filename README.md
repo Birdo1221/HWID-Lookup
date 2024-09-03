@@ -1,4 +1,4 @@
-## HWID Checker
+## Basic HWID Checker
 # Depreciated
 ![image](https://github.com/user-attachments/assets/61ac0375-1075-4e40-8a5b-e1452c211086)
 
